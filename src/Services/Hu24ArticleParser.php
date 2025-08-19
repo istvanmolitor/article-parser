@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleParser;
+namespace Molitor\ArticleParser\Services;
 
 use Molitor\HtmlParser\HtmlParser;
 

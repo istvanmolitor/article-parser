@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleParser;
+namespace Molitor\ArticleParser\Services;
 
 use Carbon\Carbon;
 use Molitor\Scraper\Services\PageParser;
