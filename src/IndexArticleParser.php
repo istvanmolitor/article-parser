@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Molitor\ArticleParser;
 
 class IndexArticleParser extends ArticleParser
 {
