@@ -27,6 +27,11 @@ abstract class ArticleParser extends PageParser
 
     abstract public function getBody(): array;
 
+    public function getSlug(): string
+    {
+        return $this->url->getPath();
+    }
+
     public function makeType(): ?string
     {
         if ($this->isValidArticle()) {
@@ -37,6 +42,9 @@ abstract class ArticleParser extends PageParser
 
     public function makeData(): ?array
     {
+        if (!$this->isValidArticle()) {
+            return null;
+        }
         return [
             'portal' => $this->getPortal(),
             'url' => (string)$this->getUrl(),

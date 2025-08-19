@@ -18,7 +18,7 @@ class Hu24ArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return true;
+        return $this->html->classExists('hir24-post');
     }
 
     public function getTitle(): string
