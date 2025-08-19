@@ -1,0 +1,19 @@
+{
+    "name": "molitor/article-parser",
+    "description": "Article parser",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Molitor István",
+            "email": "istvanmolitor@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Molitor\\ArticleParser\\": "src/"
+        }
+    }
+}
