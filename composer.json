@@ -1,19 +1,31 @@
 {
-    "name": "molitor/article-parser",
-    "description": "Article parser",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Molitor István",
-            "email": "istvanmolitor@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "Molitor\\ArticleParser\\": "src/"
-        }
+  "name": "molitor/article-parser",
+  "description": "Article parser",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Molitor István",
+      "email": "istvanmolitor@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^8.0",
+    "molitor/html-parser": "dev-main"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "10.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Molitor\\ArticleParser\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/istvanmolitor/html-parser.git"
+    }
+  ]
 }

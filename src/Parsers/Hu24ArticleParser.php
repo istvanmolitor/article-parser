@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleParser\Services;
+namespace Molitor\ArticleParser\Parsers;
 
 use Molitor\HtmlParser\HtmlParser;
 
@@ -18,7 +18,7 @@ class Hu24ArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return $this->html->classExists('hir24-post');
+        return $this->html->classExists('u-onlyArticlePages');
     }
 
     public function getTitle(): string
@@ -38,7 +38,7 @@ class Hu24ArticleParser extends ArticleParser
 
     public function getCreatedAt(): string
     {
-        return $this->html->getElementByFirstClassName('o-post__date')->stripTags();
+        return $this->html->getElementByFirstClassName('o-post__date')->getTime('Y. m. d. H:i', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
@@ -55,36 +55,13 @@ class Hu24ArticleParser extends ArticleParser
         return '';
     }
 
-    public function getBody(): array
-    {
-        $body = [];
-        $elements = $this->html->getElementByFirstClassName('u-onlyArticlePages')->getChildren();
-
-        /** @var HtmlParser $element */
-        foreach($elements as $element) {
-            $type = $element->getFirstTagName();
-            if($type === 'p') {
-                $body[] = [
-                    'type' => 'paragraph',
-                    'content' => $element->stripTags(),
-                ];
-            }
-            elseif($type === 'ul') {
-                $items = [];
-                foreach ($element->getElementsByTagName('li') as $li) {
-                    $items[] = $li->stripTags();
-                }
-                $body[] = [
-                    'type' => 'list',
-                    'items' => $items,
-                ];
-            }
-        }
-        return $body;
-    }
-
     public function getAuthor(): string
     {
-        return '';
+        return $this->html->getElementByFirstClassName('m-author__authorWrap')->getElementByFirstClassName('m-author__name')->stripTags();
+    }
+
+    public function getArticleContentWrapper(): ?HtmlParser
+    {
+        return $this->html->getElementByFirstClassName('u-onlyArticlePages');
     }
 }

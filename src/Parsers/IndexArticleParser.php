@@ -1,6 +1,10 @@
 <?php
 
-namespace Molitor\ArticleParser\Services;
+namespace Molitor\ArticleParser\Parsers;
+
+use Molitor\ArticleScraper\Article\ArticleContent;
+use Molitor\ArticleScraper\Article\ArticleContentParagraph;
+use Molitor\HtmlParser\HtmlParser;
 
 class IndexArticleParser extends ArticleParser
 {
@@ -44,34 +48,13 @@ class IndexArticleParser extends ArticleParser
         return $this->html->getElementByFirstClassName('lead_container')->stripTags();
     }
 
-    public function getBody(): array
-    {
-        $body = [];
-        $elements = $this->html->getElementByFirstClassName('cikk-torzs')->getElementsByTagName('p');
-        foreach($elements as $element) {
-            $type = $element->getFirstTagName();
-            if($type === 'p') {
-                $body[] = [
-                    'type' => 'paragraph',
-                    'content' => $element->stripTags(),
-                ];
-            }
-            elseif($type == 'ul') {
-                $items = [];
-                foreach ($element->getElementsByTagName('li') as $li) {
-                    $items[] = $li->stripTags();
-                }
-                $body[] = [
-                    'type' => 'list',
-                    'items' => $items,
-                ];
-            }
-        }
-        return $body;
-    }
-
     public function getAuthor(): string
     {
         return '';
+    }
+
+    public function getArticleContentWrapper(): ?HtmlParser
+    {
+        return $this->html->getElementByFirstClassName('cikk-torzs');
     }
 }
