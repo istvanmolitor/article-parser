@@ -2,23 +2,23 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class ArticleContentParagraph extends ArticleContentElement
+class HeadingArticleContentElement extends ArticleContentElement
 {
-    private string $content;
-
-    public function __construct(string $content)
+    public function __construct(
+        private int $level,
+        private string $content)
     {
-        $this->content = $content;
     }
 
     public function getType(): string
     {
-        return 'paragraph';
+        return 'heading';
     }
 
     public function getContent(): array
     {
         return [
+            'level' => $this->level,
             'content' => $this->content,
         ];
     }

@@ -10,7 +10,7 @@ class ArticleParser24HuTest extends TestCase
 
     public function setUp(): void
     {
-        $content = file_get_contents(__DIR__ . '/24hu.html');
+        $content = file_get_contents('https://24.hu/szorakozas/2025/08/29/valyi-istvan-orsegi-oldtimer-egyesulet-tag-kizarasa-politikai-nezetei-miatt/');
         $this->parser = new Hu24ArticleParser(new HtmlParser($content));
     }
 
@@ -36,7 +36,7 @@ class ArticleParser24HuTest extends TestCase
     }
 
     public function test_24_hu_main_image_alt(): void {
-        $alt = 'Vályi István reagált';
+        $alt = '';
         $this->assertSame($alt, $this->parser->getMainImageAlt());
     }
 

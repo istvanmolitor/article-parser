@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleScraper\Article;
+namespace Molitor\ArticleParser\Article;
 
 class ArticleContent
 {
@@ -9,6 +9,7 @@ class ArticleContent
     public function toArray(): array
     {
         $elements = [];
+        /** @var ArticleContentElement $element */
         foreach($this->elements as $element) {
             $elements[] = $element->toArray();
         }
@@ -44,5 +45,17 @@ class ArticleContent
     public function addList(array $items)
     {
         $this->add(new ArticleContentList($items));
+    }
+
+    public function addQuote(string $content): void
+    {
+        if(!empty($content)) {
+            $this->add(new QuoteContentElement($content));
+        }
+    }
+
+    public function addHeading(int $level, string $content): void
+    {
+        $this->add(new HeadingArticleContentElement($level, $content));
     }
 }

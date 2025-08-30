@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleScraper\Article;
+namespace Molitor\ArticleParser\Article;
 
 class ArticleContentList extends ArticleContentElement
 {

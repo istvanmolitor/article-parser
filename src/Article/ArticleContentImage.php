@@ -1,6 +1,6 @@
 <?php
 
-namespace Molitor\ArticleScraper\Article;
+namespace Molitor\ArticleParser\Article;
 
 class ArticleContentImage extends ArticleContentElement
 {
@@ -23,6 +23,6 @@ class ArticleContentImage extends ArticleContentElement
 
     public function __toString(): string
     {
-        return $this->image->alt;
+        return (string)$this->image->alt;
     }
 }
