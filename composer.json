@@ -1,5 +1,5 @@
 {
-  "name": "molitor/article-parser",
+  "name": "istvanmolitor/article-parser",
   "description": "Article parser",
   "type": "library",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^8.2",
-    "molitor/html-parser": "dev-main"
+    "istvanmolitor/html-parser": "dev-main"
   },
   "require-dev": {
     "phpunit/phpunit": "10.*"
