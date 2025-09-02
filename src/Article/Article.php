@@ -16,9 +16,9 @@ class Article
 
     public string $lead;
 
-    public array $keywords;
+    public array $keywords = [];
 
-    public ?ArticleContent $content = null;
+    public ArticleContent $content;
 
     public string $createdAt;
 
@@ -37,7 +37,7 @@ class Article
             'mainImage' => $this->mainImage?->toArray(),
             'lead' => $this->lead,
             'keywords' => $this->keywords,
-            'content' => $this->content?->toArray(),
+            'content' => $this->content->toArray(),
             'createdAt' => $this->createdAt,
         ];
     }
