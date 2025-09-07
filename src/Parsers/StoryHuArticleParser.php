@@ -14,22 +14,22 @@ class StoryHuArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return $this->html->classExists('type-post');
+        return $this->html->existsByClass('type-post');
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
-        return $this->html->getElementByFirstClassName('herald-author-name')->stripTags();
+        return $this->html->getByClass('herald-author-name')?->getText();
     }
 
     public function getMainImageAlt(): string
     {
-        $this->html->getElementByFirstTagName('wp-post-image')->getAttribute('title');
+        return $this->html->getByTagName('wp-post-image')->getAttribute('title');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->html->getElementByFirstClassName('updated')->getTime('Y-m-d', 'Europe/Budapest');
+        return $this->html->getByClass('updated')->parseTime('Y-m-d', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
@@ -39,6 +39,6 @@ class StoryHuArticleParser extends ArticleParser
 
     public function getArticleContentWrapper(): ?HtmlParser
     {
-        return $this->html->getElementByFirstClassName('entry-content');
+        return $this->html->getByClass('entry-content');
     }
 }

@@ -19,41 +19,41 @@ abstract class ArticleParser
 
     abstract public function isValidArticle(): bool;
 
-    abstract public function getAuthor(): string;
+    abstract public function getAuthor(): ?string;
 
     public function getTitle(): string {
-        $h1 = $this->html->getElementByFirstTagName('h1')->stripTags();
+        $h1 = $this->html->getByTagName('h1')?->getText();
         if($h1) {
             return $h1;
         }
-        return $this->html->getElementByFirstTagName('title')->stripTags();
+        return $this->html->getByTagName('title')?->getText();
     }
 
-    public function getMainImageSrc(): string {
-        $metaData = $this->html->getMetaData();
+    public function getMainImageSrc(): null|string {
+        $metaData = $this->html->parseMetaData();
         if(isset($metaData['og:image'])) {
             return $metaData['og:image'];
         }
-        return '';
+        return null;
     }
 
-    abstract public function getMainImageAlt(): string;
+    abstract public function getMainImageAlt(): ?string;
 
-    abstract public function getCreatedAt(): string;
+    abstract public function getCreatedAt(): ?string;
 
-    abstract public function getMainImageAuthor(): string;
+    abstract public function getMainImageAuthor(): ?string;
 
-    public function getLead(): string {
-        $metaData = $this->html->getMetaData();
+    public function getLead(): ?string {
+        $metaData = $this->html->parseMetaData();
         if(isset($metaData['description'])) {
             return $metaData['description'];
         }
-        return '';
+        return null;
     }
 
     public function getKeywords(): array
     {
-        return $this->html->getKeywords();
+        return $this->html->parseKeywords();
     }
 
     abstract public function getArticleContentWrapper(): ?HtmlParser;
@@ -70,22 +70,22 @@ abstract class ArticleParser
         foreach($elements as $element) {
             $type = $element->getFirstTagName();
             if($type === 'p') {
-                $content->add(new ArticleContentParagraph($element->stripTags()));
+                $content->add(new ArticleContentParagraph($element->getText()));
             }
             elseif($type == 'ul') {
                 $content->addList($element->getElementsByTagName('li'));
             }
             elseif($type == 'blockquote') {
-                $content->addQuote($element->stripTags());
+                $content->addQuote($element->getText());
             }
             elseif($type == 'h1') {
-                $content->addHeading(1, $element->stripTags());
+                $content->addHeading(1, $element->getText());
             }
             elseif($type == 'h2') {
-                $content->addHeading(2, $element->stripTags());
+                $content->addHeading(2, $element->getText());
             }
             elseif($type == 'h3') {
-                $content->addHeading(3, $element->stripTags());
+                $content->addHeading(3, $element->getText());
             }
 
         }

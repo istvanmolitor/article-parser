@@ -20,17 +20,17 @@ class IndexArticleParser extends ArticleParser
 
     public function getTitle(): string
     {
-        return $this->html->getElementByFirstClassName('content-title')->stripTags();
+        return $this->html->getByClass('content-title')->getText();
     }
 
-    public function getMainImageSrc(): string
+    public function getMainImageSrc(): null|string
     {
-        return $this->html->getElementByFirstClassName('cikk-cover')->getElementByFirstTagName('img')->getAttribute('src');
+        return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('src')??null;
     }
 
     public function getMainImageAlt(): string
     {
-        return $this->html->getElementByFirstClassName('cikk-cover')->getElementByFirstTagName('img')->getAttribute('alt');
+        return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('alt');
     }
 
     public function getCreatedAt(): string
@@ -45,16 +45,16 @@ class IndexArticleParser extends ArticleParser
 
     public function getLead(): string
     {
-        return $this->html->getElementByFirstClassName('lead_container')->stripTags();
+        return $this->html->getByClass('lead_container')->getText();
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
-        return '';
+        return null;
     }
 
     public function getArticleContentWrapper(): ?HtmlParser
     {
-        return $this->html->getElementByFirstClassName('cikk-torzs');
+        return $this->html->getByClass('cikk-torzs');
     }
 }

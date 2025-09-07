@@ -2,6 +2,8 @@
 
 namespace Molitor\ArticleParser\Article;
 
+use ArrayIterator;
+
 class ArticleContent
 {
     public array $elements = [];
@@ -57,5 +59,35 @@ class ArticleContent
     public function addHeading(int $level, string $content): void
     {
         $this->add(new HeadingArticleContentElement($level, $content));
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->elements);
+    }
+
+    public function count(): int
+    {
+        return count($this->elements);
+    }
+
+    public function exists(int $index): bool
+    {
+        return isset($this->elements[$index]);
+    }
+
+    public function get(int $index): ?ArticleContentElement
+    {
+        return $this->elements[$index] ?? null;
+    }
+
+    public function getFirst(): ?ArticleContentElement
+    {
+        return $this->get(0);
+    }
+
+    public function getLast(): ?ArticleContentElement
+    {
+        return $this->get(count($this->elements) - 1);
     }
 }

@@ -4,29 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7177106af9f3d3474f7a8bd93b9f356e",
+    "content-hash": "23848675348440d8e8c5923f270b3d68",
     "packages": [
         {
-            "name": "molitor/html-parser",
-            "version": "dev-main",
+            "name": "istvanmolitor/html-parser",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/istvanmolitor/html-parser.git",
-                "reference": "9b5494759c957e30a620f67af6e1855a63d70d50"
+                "reference": "41328ae4dc610f6a69aef341dcc15db8b2ed3dee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/istvanmolitor/html-parser/zipball/9b5494759c957e30a620f67af6e1855a63d70d50",
-                "reference": "9b5494759c957e30a620f67af6e1855a63d70d50",
+                "url": "https://api.github.com/repos/istvanmolitor/html-parser/zipball/41328ae4dc610f6a69aef341dcc15db8b2ed3dee",
+                "reference": "41328ae4dc610f6a69aef341dcc15db8b2ed3dee",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0"
+                "php": "^8.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "10.*"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -44,10 +43,10 @@
             ],
             "description": "HTML Parser",
             "support": {
-                "source": "https://github.com/istvanmolitor/html-parser/tree/main",
+                "source": "https://github.com/istvanmolitor/html-parser/tree/v1.1.0",
                 "issues": "https://github.com/istvanmolitor/html-parser/issues"
             },
-            "time": "2025-08-30T11:59:14+00:00"
+            "time": "2025-09-06T15:27:20+00:00"
         }
     ],
     "packages-dev": [
@@ -619,12 +618,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ed8f8f44ac237f2cf68d8879e69f3846dd1dbe3e"
+                "reference": "15d0472f896e92711d48f171ae4837a33004aa5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ed8f8f44ac237f2cf68d8879e69f3846dd1dbe3e",
-                "reference": "ed8f8f44ac237f2cf68d8879e69f3846dd1dbe3e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/15d0472f896e92711d48f171ae4837a33004aa5d",
+                "reference": "15d0472f896e92711d48f171ae4837a33004aa5d",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +719,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-28T10:28:42+00:00"
+            "time": "2025-09-03T03:56:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -1710,13 +1709,11 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "molitor/html-parser": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0"
+        "php": "^8.2"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

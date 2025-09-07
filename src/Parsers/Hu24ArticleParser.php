@@ -11,34 +11,29 @@ class Hu24ArticleParser extends ArticleParser
         return '24.hu';
     }
 
-    public function getSlug(): string
-    {
-        return $this->url->getPath();
-    }
-
     public function isValidArticle(): bool
     {
-        return $this->html->classExists('u-onlyArticlePages');
+        return $this->html->existsByClass('u-onlyArticlePages');
     }
 
     public function getTitle(): string
     {
-        return $this->html->getElementByFirstClassName('o-post__title')->stripTags();
+        return $this->html->getByClass('o-post__title')?->getText();
     }
 
-    public function getMainImageSrc(): string
+    public function getMainImageSrc(): null|string
     {
-        return $this->html->getElementByFirstClassName('o-post__featuredImage')->getAttribute('src');
+        return $this->html->getByClass('o-post__featuredImage')?->getAttribute('src') ?? null;
     }
 
     public function getMainImageAlt(): string
     {
-        return $this->html->getElementByFirstClassName('o-post__featuredImage')->getAttribute('alt');
+        return $this->html->getByClass('o-post__featuredImage')->getAttribute('alt');
     }
 
     public function getCreatedAt(): string
     {
-        return $this->html->getElementByFirstClassName('o-post__date')->getTime('Y. m. d. H:i', 'Europe/Budapest');
+        return $this->html->getByClass('o-post__date')->parseTime('Y. m. d. H:i', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
@@ -48,20 +43,20 @@ class Hu24ArticleParser extends ArticleParser
 
     public function getLead(): string
     {
-        $pTag = $this->html->getElementByFirstClassName('u-onlyArticlePages')->getElementByFirstTagName('p');
+        $pTag = $this->html->getByClass('u-onlyArticlePages')->getByTagName('p');
         if($pTag) {
-            return $pTag->stripTags();
+            return $pTag->getText();
         }
         return '';
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
-        return $this->html->getElementByFirstClassName('m-author__authorWrap')->getElementByFirstClassName('m-author__name')->stripTags();
+        return $this->html->getByClass('m-author__authorWrap')->getByClass('m-author__name')->getText();
     }
 
     public function getArticleContentWrapper(): ?HtmlParser
     {
-        return $this->html->getElementByFirstClassName('u-onlyArticlePages');
+        return $this->html->getByClass('u-onlyArticlePages');
     }
 }
