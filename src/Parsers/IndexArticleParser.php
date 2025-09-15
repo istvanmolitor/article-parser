@@ -2,8 +2,6 @@
 
 namespace Molitor\ArticleParser\Parsers;
 
-use Molitor\ArticleScraper\Article\ArticleContent;
-use Molitor\ArticleScraper\Article\ArticleContentParagraph;
 use Molitor\HtmlParser\HtmlParser;
 
 class IndexArticleParser extends ArticleParser
@@ -28,14 +26,14 @@ class IndexArticleParser extends ArticleParser
         return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('src')??null;
     }
 
-    public function getMainImageAlt(): string
+    public function getMainImageAlt(): null|string
     {
         return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('alt');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): string|null
     {
-        return '';
+        return null;
     }
 
     public function getMainImageAuthor(): string
@@ -48,12 +46,12 @@ class IndexArticleParser extends ArticleParser
         return $this->html->getByClass('lead_container')->getText();
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): null|string
     {
         return null;
     }
 
-    public function getArticleContentWrapper(): ?HtmlParser
+    public function getArticleContentWrapper(): null|HtmlParser
     {
         return $this->html->getByClass('cikk-torzs');
     }

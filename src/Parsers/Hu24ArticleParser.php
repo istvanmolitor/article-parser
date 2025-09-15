@@ -26,14 +26,18 @@ class Hu24ArticleParser extends ArticleParser
         return $this->html->getByClass('o-post__featuredImage')?->getAttribute('src') ?? null;
     }
 
-    public function getMainImageAlt(): string
+    public function getMainImageAlt(): null|string
     {
-        return $this->html->getByClass('o-post__featuredImage')->getAttribute('alt');
+        return $this->html->getByClass('o-post__featuredImage')?->getAttribute('alt');
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): null|string
     {
-        return $this->html->getByClass('o-post__date')->parseTime('Y. m. d. H:i', 'Europe/Budapest');
+        $time = $this->html->getByClass('o-post__date')?->getText();
+        if(!$time) {
+            return null;
+        }
+        return $this->makeTime($time . ':00', 'Y. m. d. H:i:s', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
@@ -50,12 +54,12 @@ class Hu24ArticleParser extends ArticleParser
         return '';
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): null|string
     {
         return $this->html->getByClass('m-author__authorWrap')->getByClass('m-author__name')->getText();
     }
 
-    public function getArticleContentWrapper(): ?HtmlParser
+    public function getArticleContentWrapper(): null|HtmlParser
     {
         return $this->html->getByClass('u-onlyArticlePages');
     }

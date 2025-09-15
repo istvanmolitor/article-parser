@@ -2,7 +2,7 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class ArticleContentList extends ArticleContentElement
+class ListArticleContentElement extends ArticleContentElement
 {
     protected array $items;
 

@@ -2,7 +2,7 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class ArticleContentImage extends ArticleContentElement
+class ImageArticleContentElement extends ArticleContentElement
 {
     private ArticleImage $image;
 

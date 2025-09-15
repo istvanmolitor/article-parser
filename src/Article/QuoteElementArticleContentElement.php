@@ -2,7 +2,7 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class QuoteContentElement extends ArticleContentParagraph
+class QuoteElementArticleContentElement extends ParagraphArticleContentElement
 {
     public function getType(): string
     {

@@ -2,7 +2,7 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class ArticleContentParagraph extends ArticleContentElement
+class ParagraphArticleContentElement extends ArticleContentElement
 {
     private string $content;
 

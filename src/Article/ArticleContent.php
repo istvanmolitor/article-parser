@@ -35,24 +35,24 @@ class ArticleContent
     public function addParagraph(string $content): void
     {
         if(!empty($content)) {
-            $this->add(new ArticleContentParagraph($content));
+            $this->add(new ParagraphArticleContentElement($content));
         }
     }
 
     public function addImage(ArticleImage $articleImage)
     {
-        $this->add(new ArticleContentImage($articleImage));
+        $this->add(new ImageArticleContentElement($articleImage));
     }
 
     public function addList(array $items)
     {
-        $this->add(new ArticleContentList($items));
+        $this->add(new ListArticleContentElement($items));
     }
 
     public function addQuote(string $content): void
     {
         if(!empty($content)) {
-            $this->add(new QuoteContentElement($content));
+            $this->add(new QuoteElementArticleContentElement($content));
         }
     }
 
@@ -76,17 +76,17 @@ class ArticleContent
         return isset($this->elements[$index]);
     }
 
-    public function get(int $index): ?ArticleContentElement
+    public function get(int $index): null|ArticleContentElement
     {
         return $this->elements[$index] ?? null;
     }
 
-    public function getFirst(): ?ArticleContentElement
+    public function getFirst(): null|ArticleContentElement
     {
         return $this->get(0);
     }
 
-    public function getLast(): ?ArticleContentElement
+    public function getLast(): null|ArticleContentElement
     {
         return $this->get(count($this->elements) - 1);
     }

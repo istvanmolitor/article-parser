@@ -3,9 +3,11 @@
 namespace Molitor\ArticleParser\Parsers;
 
 use Molitor\ArticleParser\Article\ArticleContent;
-use Molitor\ArticleParser\Article\ArticleContentParagraph;
+use Molitor\ArticleParser\Article\ParagraphArticleContentElement;
 use Molitor\ArticleParser\Article\ArticleImage;
 use Molitor\HtmlParser\HtmlParser;
+use DateTime;
+use DateTimeZone;
 
 abstract class ArticleParser
 {
@@ -19,7 +21,7 @@ abstract class ArticleParser
 
     abstract public function isValidArticle(): bool;
 
-    abstract public function getAuthor(): ?string;
+    abstract public function getAuthor(): null|string;
 
     public function getTitle(): string {
         $h1 = $this->html->getByTagName('h1')?->getText();
@@ -37,13 +39,13 @@ abstract class ArticleParser
         return null;
     }
 
-    abstract public function getMainImageAlt(): ?string;
+    abstract public function getMainImageAlt(): null|string;
 
-    abstract public function getCreatedAt(): ?string;
+    abstract public function getCreatedAt(): null|string;
 
-    abstract public function getMainImageAuthor(): ?string;
+    abstract public function getMainImageAuthor(): null|string;
 
-    public function getLead(): ?string {
+    public function getLead(): null|string {
         $metaData = $this->html->parseMetaData();
         if(isset($metaData['description'])) {
             return $metaData['description'];
@@ -56,7 +58,7 @@ abstract class ArticleParser
         return $this->html->parseKeywords();
     }
 
-    abstract public function getArticleContentWrapper(): ?HtmlParser;
+    abstract public function getArticleContentWrapper(): null|HtmlParser;
 
     public function getArticleContent(): ArticleContent {
         $articleContentWrapper = $this->getArticleContentWrapper();
@@ -70,7 +72,7 @@ abstract class ArticleParser
         foreach($elements as $element) {
             $type = $element->getFirstTagName();
             if($type === 'p') {
-                $content->add(new ArticleContentParagraph($element->getText()));
+                $content->add(new ParagraphArticleContentElement($element->getText()));
             }
             elseif($type == 'ul') {
                 $content->addList($element->getElementsByTagName('li'));
@@ -92,7 +94,7 @@ abstract class ArticleParser
         return $content;
     }
 
-    public function getMainImage(): ?ArticleImage
+    public function getMainImage(): null|ArticleImage
     {
         $src = $this->getMainImageSrc();
         if($src) {
@@ -103,5 +105,19 @@ abstract class ArticleParser
             return $image;
         }
         return null;
+    }
+
+    public function makeTime(string $time, string $format, string $timezone = 'UTC'): null|string
+    {
+        if(empty($time)) {
+            return null;
+        }
+        $dt = DateTime::createFromFormat($format, $time, new DateTimeZone($timezone));
+        if(!$dt) {
+            return null;
+        }
+
+        $dt->setTimezone(new DateTimeZone('UTC'));
+        return $dt->format('Y-m-d H:i:s');
     }
 }

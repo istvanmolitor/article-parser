@@ -17,19 +17,28 @@ class StoryHuArticleParser extends ArticleParser
         return $this->html->existsByClass('type-post');
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): null|string
     {
         return $this->html->getByClass('herald-author-name')?->getText();
     }
 
-    public function getMainImageAlt(): string
+    public function getMainImageSrc(): null|string
     {
-        return $this->html->getByTagName('wp-post-image')->getAttribute('title');
+        return $this->html->getByClass('herald-post-thumbnail-single')?->getByTagName('img')?->getAttribute('src') ?? null;
     }
 
-    public function getCreatedAt(): string
+    public function getMainImageAlt(): null|string
     {
-        return $this->html->getByClass('updated')->parseTime('Y-m-d', 'Europe/Budapest');
+        return $this->html->getByTagName('wp-post-image')?->getAttribute('title');
+    }
+
+    public function getCreatedAt(): null|string
+    {
+        $time = $this->html->getByClass('updated')?->getText();
+        if(!$time) {
+            return null;
+        }
+        return $this->makeTime($time . ' 00:00:00','Y-m-d H:i:s', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
@@ -37,7 +46,7 @@ class StoryHuArticleParser extends ArticleParser
        return '';
     }
 
-    public function getArticleContentWrapper(): ?HtmlParser
+    public function getArticleContentWrapper(): null|HtmlParser
     {
         return $this->html->getByClass('entry-content');
     }

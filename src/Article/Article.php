@@ -10,9 +10,9 @@ class Article
 
     public string $title;
 
-    public string $author;
+    public string|null $author;
 
-    public ?ArticleImage $mainImage = null;
+    public ArticleImage|null $mainImage = null;
 
     public string $lead;
 
@@ -20,7 +20,7 @@ class Article
 
     public ArticleContent $content;
 
-    public string $createdAt;
+    public string|null $createdAt;
 
     public function __construct()
     {
