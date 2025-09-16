@@ -52,7 +52,7 @@ class ArticleContent
     public function addQuote(string $content): void
     {
         if(!empty($content)) {
-            $this->add(new QuoteElementArticleContentElement($content));
+            $this->add(new QuoteArticleContentElement($content));
         }
     }
 

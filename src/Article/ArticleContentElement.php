@@ -4,7 +4,9 @@ namespace Molitor\ArticleParser\Article;
 
 abstract class ArticleContentElement
 {
-    abstract public function getType(): string;
+    public function getType(): string {
+        return strtolower(substr(basename(str_replace("\\", "/", get_class($this))), 0, -21));
+    }
 
     abstract public function getContent(): array;
 

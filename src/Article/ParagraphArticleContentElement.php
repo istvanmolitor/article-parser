@@ -11,11 +11,6 @@ class ParagraphArticleContentElement extends ArticleContentElement
         $this->content = $content;
     }
 
-    public function getType(): string
-    {
-        return 'paragraph';
-    }
-
     public function getContent(): array
     {
         return [

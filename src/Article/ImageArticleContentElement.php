@@ -11,11 +11,6 @@ class ImageArticleContentElement extends ArticleContentElement
         $this->image = $image;
     }
 
-    public function getType(): string
-    {
-        return 'image';
-    }
-
     public function getContent(): array
     {
         return $this->image->toArray();

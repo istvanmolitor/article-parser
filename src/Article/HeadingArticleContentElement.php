@@ -10,11 +10,6 @@ class HeadingArticleContentElement extends ArticleContentElement
     {
     }
 
-    public function getType(): string
-    {
-        return 'heading';
-    }
-
     public function getContent(): array
     {
         return [

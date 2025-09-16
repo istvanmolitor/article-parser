@@ -11,7 +11,7 @@ use Molitor\HtmlParser\HtmlParser;
 
 class ArticleParserService
 {
-    public function getByUrl(string $url): ?Article
+    public function getByUrl(string $url): Article|null
     {
         $content = @file_get_contents($url);
         if(!$content) {
@@ -36,7 +36,7 @@ class ArticleParserService
         return $this->getArticleByParser($url, $parser);
     }
 
-    private function getArticleByParser(string $url, ArticleParser $parser): ?Article
+    private function getArticleByParser(string $url, ArticleParser $parser): Article|null
     {
         if(!$parser->isValidArticle()) {
             return null;

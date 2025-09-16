@@ -11,11 +11,6 @@ class ListArticleContentElement extends ArticleContentElement
         $this->items = $items;
     }
 
-    public function getType(): string
-    {
-        return 'list';
-    }
-
     public function getContent(): array
     {
         return [
