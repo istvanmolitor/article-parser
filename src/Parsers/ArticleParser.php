@@ -69,39 +69,43 @@ abstract class ArticleParser
         }
 
         $elements = $articleContentWrapper->getChildren();
+        /** @var HtmlParser $element */
         foreach($elements as $element) {
-            $type = $element->getFirstTagName();
-            if($type === 'p') {
-                $content->add(new ParagraphArticleContentElement($element->getText()));
-            }
-            elseif($type == 'ul') {
-                $content->addList($element->getElementsByTagName('li'));
-            }
-            elseif($type == 'blockquote') {
-                $content->addQuote($element->getText());
-            }
-            elseif($type == 'h1') {
-                $content->addHeading(1, $element->getText());
-            }
-            elseif($type == 'h2') {
-                $content->addHeading(2, $element->getText());
-            }
-            elseif($type == 'h3') {
-                $content->addHeading(3, $element->getText());
-            }
-
+            $this->parseArticleContentElement($content, $element);
         }
         return $content;
+    }
+
+    public function parseArticleContentElement(ArticleContent $content, HtmlParser $element): void
+    {
+        $type = $element->getFirstTagName();
+        if($type === 'p') {
+            $content->add(new ParagraphArticleContentElement($element->getText()));
+        }
+        elseif($type == 'ul') {
+            $content->addList($element->getListByTagName('li')->getTexts());
+        }
+        elseif($type == 'blockquote') {
+            $content->addQuote($element->getText());
+        }
+        elseif($type == 'h1') {
+            $content->addHeading(1, $element->getText());
+        }
+        elseif($type == 'h2') {
+            $content->addHeading(2, $element->getText());
+        }
+        elseif($type == 'h3') {
+            $content->addHeading(3, $element->getText());
+        }
     }
 
     public function getMainImage(): null|ArticleImage
     {
         $src = $this->getMainImageSrc();
         if($src) {
-            $image = new ArticleImage();
-            $image->src = $src;
-            $image->alt = $this->getMainImageAlt();
-            $image->author = $this->getMainImageAuthor();
+            $image = new ArticleImage($src);
+            $image->setAlt($this->getMainImageAlt());
+            $image->setAuthor($this->getMainImageAuthor());
             return $image;
         }
         return null;

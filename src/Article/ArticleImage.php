@@ -4,11 +4,39 @@ namespace Molitor\ArticleParser\Article;
 
 class ArticleImage
 {
-    public string $src;
+    protected string $src;
 
-    public string $alt;
+    protected null|string $alt;
 
-    public string $author;
+    protected null|string $author;
+
+    public function __construct(string $src)
+    {
+        $this->src = $src;
+    }
+
+    public function setAuthor(null|string $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function getAuthor(): null|string
+    {
+        return $this->author;
+    }
+
+    public function setAlt(null|string $alt): void
+    {
+        $this->alt = $alt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAlt(): null|string
+    {
+        return $this->alt;
+    }
 
     public function toArray(): array
     {

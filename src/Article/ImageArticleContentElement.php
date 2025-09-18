@@ -11,13 +11,32 @@ class ImageArticleContentElement extends ArticleContentElement
         $this->image = $image;
     }
 
-    public function getContent(): array
+    public function getData(): array
     {
         return $this->image->toArray();
     }
 
     public function __toString(): string
     {
-        return (string)$this->image->alt;
+        return $this->getAlt();
+    }
+
+    public function getImage(): ArticleImage
+    {
+        return $this->image;
+    }
+
+    public function getAlt(): string
+    {
+        return $this->image->alt;
+    }
+
+    public function getAuthor(): string
+    {
+        return $this->image->author;
+    }
+
+    public function getSrc(): string {
+        return $this->image->src;
     }
 }

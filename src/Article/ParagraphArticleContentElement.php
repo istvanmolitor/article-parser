@@ -11,7 +11,7 @@ class ParagraphArticleContentElement extends ArticleContentElement
         $this->content = $content;
     }
 
-    public function getContent(): array
+    public function getData(): array
     {
         return [
             'content' => $this->content,
@@ -19,6 +19,11 @@ class ParagraphArticleContentElement extends ArticleContentElement
     }
 
     public function __toString(): string
+    {
+        return $this->content;
+    }
+
+    public function getContent(): string
     {
         return $this->content;
     }

@@ -11,7 +11,12 @@ class ListArticleContentElement extends ArticleContentElement
         $this->items = $items;
     }
 
-    public function getContent(): array
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    public function getData(): array
     {
         return [
             'items' => $this->items,

@@ -2,6 +2,8 @@
 
 namespace Molitor\ArticleParser\Parsers;
 
+use Molitor\ArticleParser\Article\ArticleContent;
+use Molitor\ArticleParser\Article\ArticleImage;
 use Molitor\HtmlParser\HtmlParser;
 
 class IndexArticleParser extends ArticleParser
@@ -18,7 +20,7 @@ class IndexArticleParser extends ArticleParser
 
     public function getTitle(): string
     {
-        return $this->html->getByClass('content-title')->getText();
+        return (string)$this->html->getByClass('content-title')?->getText();
     }
 
     public function getMainImageSrc(): null|string
@@ -43,16 +45,44 @@ class IndexArticleParser extends ArticleParser
 
     public function getLead(): string
     {
-        return $this->html->getByClass('lead_container')->getText();
+        return (string)$this->html->getByClass('lead_container')?->getText();
     }
 
     public function getAuthor(): null|string
     {
-        return null;
+        return $this->html->getByClass('szerzok_container')?->getByClass('szerzo')?->getText();
     }
 
     public function getArticleContentWrapper(): null|HtmlParser
     {
         return $this->html->getByClass('cikk-torzs');
+    }
+
+    public function parseArticleContentElement(ArticleContent $content, HtmlParser $element): void
+    {
+        $tagName = $element->getFirstTagName();
+        if($tagName === 'div') {
+            if($element->existsByClass('eyecatcher_long')) {
+                $content->addHeading(2, $element->getText());
+            }
+            elseif($element->existsByClass('szerkfotoimage')) {
+                $imageData = $element->getByClass('szerkfotoimage')?->getByTagName('img')?->parseImage();
+                if($imageData) {
+
+                    $imageAuthor = $element?->getByClass('photographer')?->getText();
+                    if($imageAuthor) {
+                        $imageAuthor = substr($imageAuthor, 6);
+                    }
+
+                    $image = new ArticleImage($imageData['src']);
+                    $image->setAlt($imageData['alt'] ?? null);
+                    $image->setAuthor($imageAuthor);
+                    $content->addImage($image);
+                }
+            }
+        }
+
+
+        parent::parseArticleContentElement($content, $element);
     }
 }
