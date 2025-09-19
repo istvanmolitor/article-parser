@@ -32,33 +32,46 @@ class ArticleContent
         return implode(' ', $elements);
     }
 
-    public function addParagraph(string $content): void
+    public function addParagraph(string $content): ParagraphArticleContentElement
     {
-        if(!empty($content)) {
-            $this->add(new ParagraphArticleContentElement($content));
-        }
+        $paragraph = new ParagraphArticleContentElement($content);
+        $this->add($paragraph);
+        return $paragraph;
     }
 
-    public function addImage(ArticleImage $articleImage)
+    public function addImage(string $src): ImageArticleContentElement
     {
-        $this->add(new ImageArticleContentElement($articleImage));
+        $image = new ImageArticleContentElement(new ArticleImage($src));
+        $this->add($image);
+        return $image;
     }
 
-    public function addList(array $items)
+    public function addList(array $items = []): ListArticleContentElement
     {
-        $this->add(new ListArticleContentElement($items));
+        $list = new ListArticleContentElement($items);
+        $this->add($list);
+        return $list;
     }
 
-    public function addQuote(string $content): void
+    public function addQuote(string $content): QuoteArticleContentElement
     {
-        if(!empty($content)) {
-            $this->add(new QuoteArticleContentElement($content));
-        }
+        $quote = new QuoteArticleContentElement($content);
+        $this->add($quote);
+        return $quote;
     }
 
-    public function addHeading(int $level, string $content): void
+    public function addHeading(int $level, string $content): HeadingArticleContentElement
     {
-        $this->add(new HeadingArticleContentElement($level, $content));
+        $heading = new HeadingArticleContentElement($level, $content);
+        $this->add($heading);
+        return $heading;
+    }
+
+    public function addVideo(string $src): VideoArticleContentElement
+    {
+        $video = new VideoArticleContentElement($src);
+        $this->add($video);
+        return $video;
     }
 
     public function getIterator(): Traversable

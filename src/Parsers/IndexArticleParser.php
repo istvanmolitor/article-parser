@@ -74,10 +74,15 @@ class IndexArticleParser extends ArticleParser
                         $imageAuthor = substr($imageAuthor, 6);
                     }
 
-                    $image = new ArticleImage($imageData['src']);
+                    $image = $content->addImage($imageData['src']);
                     $image->setAlt($imageData['alt'] ?? null);
                     $image->setAuthor($imageAuthor);
-                    $content->addImage($image);
+                }
+            }
+            elseif($element->existsByClass('yt-video-container')) {
+                $videoData = $element?->getByTagName('iframe')?->getAttributes();
+                if($videoData) {
+                    $video = $content->addVideo($videoData['src']);
                 }
             }
         }

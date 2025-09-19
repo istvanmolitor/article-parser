@@ -38,6 +38,22 @@ class ArticleImage
         return $this->alt;
     }
 
+    /**
+     * @return string
+     */
+    public function getSrc(): string
+    {
+        return $this->src;
+    }
+
+    /**
+     * @param string $src
+     */
+    public function setSrc(string $src): void
+    {
+        $this->src = $src;
+    }
+
     public function toArray(): array
     {
         return [
