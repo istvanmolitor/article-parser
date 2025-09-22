@@ -97,6 +97,12 @@ abstract class ArticleParser
         elseif($type == 'h3') {
             $content->addHeading(3, $element->getText());
         }
+        elseif($type == 'img') {
+            $content->addImage($element->getAttributes()['src']);
+        }
+        elseif($type == 'iframe') {
+            $content->addIframe($element->getAttributes()['src']);
+        }
     }
 
     public function getMainImage(): null|ArticleImage
@@ -123,5 +129,13 @@ abstract class ArticleParser
 
         $dt->setTimezone(new DateTimeZone('UTC'));
         return $dt->format('Y-m-d H:i:s');
+    }
+
+    public function parseImage(HtmlParser $element)
+    {
+        if($element->getFirstTagName() === 'img') {
+            return $element->parseImage();
+        }
+
     }
 }

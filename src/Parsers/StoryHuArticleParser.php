@@ -14,7 +14,7 @@ class StoryHuArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return $this->html->existsByClass('type-post');
+        return $this->html->classExists('type-post');
     }
 
     public function getAuthor(): null|string

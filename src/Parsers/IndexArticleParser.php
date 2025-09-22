@@ -62,10 +62,10 @@ class IndexArticleParser extends ArticleParser
     {
         $tagName = $element->getFirstTagName();
         if($tagName === 'div') {
-            if($element->existsByClass('eyecatcher_long')) {
+            if($element->classExists('eyecatcher_long')) {
                 $content->addHeading(2, $element->getText());
             }
-            elseif($element->existsByClass('szerkfotoimage')) {
+            elseif($element->classExists('szerkfotoimage')) {
                 $imageData = $element->getByClass('szerkfotoimage')?->getByTagName('img')?->parseImage();
                 if($imageData) {
 
@@ -79,7 +79,7 @@ class IndexArticleParser extends ArticleParser
                     $image->setAuthor($imageAuthor);
                 }
             }
-            elseif($element->existsByClass('yt-video-container')) {
+            elseif($element->classExists('yt-video-container')) {
                 $videoData = $element?->getByTagName('iframe')?->getAttributes();
                 if($videoData) {
                     $video = $content->addVideo($videoData['src']);

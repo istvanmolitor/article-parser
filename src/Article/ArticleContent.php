@@ -74,6 +74,13 @@ class ArticleContent
         return $video;
     }
 
+    public function addIframe(string $src): IFrameArticleContentElement
+    {
+        $iframe = new IFrameArticleContentElement($src);
+        $this->add($iframe);
+        return $iframe;
+    }
+
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->elements);

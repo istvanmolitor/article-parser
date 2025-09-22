@@ -13,7 +13,7 @@ class Hu24ArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return $this->html->existsByClass('u-onlyArticlePages');
+        return $this->html->classExists('u-onlyArticlePages');
     }
 
     public function getTitle(): string
