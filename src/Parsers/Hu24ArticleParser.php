@@ -54,7 +54,7 @@ class Hu24ArticleParser extends ArticleParser
         return '';
     }
 
-    public function getAuthor(): null|string
+    public function getAuthors(): null|string|array
     {
         return $this->html->getByClass('m-author__authorWrap')->getByClass('m-author__name')->getText();
     }

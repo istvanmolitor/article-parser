@@ -21,7 +21,7 @@ abstract class ArticleParser
 
     abstract public function isValidArticle(): bool;
 
-    abstract public function getAuthor(): null|string;
+    abstract public function getAuthors(): null|string|array;
 
     public function getTitle(): string {
         $h1 = $this->html->getByTagName('h1')?->getText();

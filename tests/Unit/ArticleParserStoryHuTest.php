@@ -42,7 +42,7 @@ class ArticleParserStoryHuTest extends TestCase
     public function test_story_hu_main_author(): void
     {
         $author = 'Janotka Krisztina';
-        $this->assertSame($author, $this->parser->getAuthor());
+        $this->assertSame($author, $this->parser->getAuthors());
     }
 
     public function test_story_hu_created_at(): void

@@ -42,15 +42,28 @@ class ArticleParserService
             return null;
         }
         $article = new Article();
-        $article->portal = $parser->getPortal();
-        $article->url = $url;
-        $article->title = $parser->getTitle();
-        $article->mainImage = $parser->getMainImage();
-        $article->lead = $parser->getLead();
-        $article->keywords = $parser->getKeywords();
-        $article->author = $parser->getAuthor();
-        $article->content = $parser->getArticleContent();
-        $article->createdAt = $parser->getCreatedAt();
+        $article->setPortal($parser->getPortal());
+        $article->setUrl($url);
+        $article->setTitle($parser->getTitle());
+        $article->setMainImage($parser->getMainImage());
+        $article->setLead($parser->getLead());
+        $article->setContent($parser->getArticleContent());
+        $article->setCreatedAt($parser->getCreatedAt());
+
+        $author = $parser->getAuthors();
+        if(is_array($author)) {
+            foreach($author as $authorName) {
+                $article->addAuthor($authorName);
+            }
+        }
+        elseif(is_string($author)) {
+            $article->addAuthor($author);
+        }
+
+        foreach ($parser->getKeywords() as $keyword) {
+            $article->addKeyword($keyword);
+        }
+
         return $article;
     }
 }

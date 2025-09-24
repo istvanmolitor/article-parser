@@ -17,7 +17,7 @@ class StoryHuArticleParser extends ArticleParser
         return $this->html->classExists('type-post');
     }
 
-    public function getAuthor(): null|string
+    public function getAuthors(): null|string|array
     {
         return $this->html->getByClass('herald-author-name')?->getText();
     }

@@ -48,7 +48,7 @@ class IndexArticleParser extends ArticleParser
         return (string)$this->html->getByClass('lead_container')?->getText();
     }
 
-    public function getAuthor(): null|string
+    public function getAuthors(): null|string|array
     {
         return $this->html->getByClass('szerzok_container')?->getByClass('szerzo')?->getText();
     }
