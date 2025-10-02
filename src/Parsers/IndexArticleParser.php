@@ -63,7 +63,7 @@ class IndexArticleParser extends ArticleParser
         $tagName = $element->getFirstTagName();
         if($tagName === 'div') {
             if($element->classExists('eyecatcher_long')) {
-                $content->addHeading(2, $element->getText());
+                $content->addHeading($element->getText());
             }
             elseif($element->classExists('szerkfotoimage')) {
                 $imageData = $element->getByClass('szerkfotoimage')?->getByTagName('img')?->parseImage();

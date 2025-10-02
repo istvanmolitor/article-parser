@@ -53,6 +53,13 @@ class ArticleParser24HuTest extends TestCase
 
     public function test_24_hu_keywords(): void
     {
-        $this->assertSame(['vályi istván'], $this->parser->getKeywords());
+        $this->assertSame([
+            'Belföld',
+            'jelentés',
+            'Igazságügyi Minisztérium',
+            'Tuzson Bence',
+            'Kuslits Gábor',
+            'Szőlő utcai javítóintézet',
+        ], $this->parser->getKeywords());
     }
 }

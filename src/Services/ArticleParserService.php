@@ -7,6 +7,7 @@ use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
 use Molitor\ArticleParser\Article\Article;
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
+use Molitor\ArticleParser\Parsers\TelexArticleParser;
 use Molitor\HtmlParser\HtmlParser;
 
 class ArticleParserService
@@ -29,6 +30,9 @@ class ArticleParserService
                 break;
             case 'story.hu':
                 $parser = new StoryHuArticleParser($html);
+                break;
+            case 'telex.hu':
+                $parser = new TelexArticleParser($html);
                 break;
             default:
                 return null;

@@ -60,9 +60,9 @@ class ArticleContent
         return $quote;
     }
 
-    public function addHeading(int $level, string $content): HeadingArticleContentElement
+    public function addHeading(string $content): HeadingArticleContentElement
     {
-        $heading = new HeadingArticleContentElement($level, $content);
+        $heading = new HeadingArticleContentElement($content);
         $this->add($heading);
         return $heading;
     }

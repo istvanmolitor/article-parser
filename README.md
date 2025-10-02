@@ -6,6 +6,7 @@ Currently supported portals:
 - 24.hu
 - index.hu
 - story.hu
+- telex.hu
 
 ## Requirements
 - PHP 8.2+

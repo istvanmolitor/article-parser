@@ -88,14 +88,8 @@ abstract class ArticleParser
         elseif($type == 'blockquote') {
             $content->addQuote($element->getText());
         }
-        elseif($type == 'h1') {
-            $content->addHeading(1, $element->getText());
-        }
-        elseif($type == 'h2') {
-            $content->addHeading(2, $element->getText());
-        }
-        elseif($type == 'h3') {
-            $content->addHeading(3, $element->getText());
+        elseif($type == 'h1' || $type == 'h2' || $type == 'h3') {
+            $content->addHeading($element->getText());
         }
         elseif($type == 'img') {
             $content->addImage($element->getAttributes()['src']);
