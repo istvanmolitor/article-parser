@@ -18,6 +18,10 @@ class TelexArticleParser extends ArticleParser
 
     public function getMainImageSrc(): ?string
     {
+        $metaData = $this->html->parseMetaData();
+        if (isset($metaData['og:image'])) {
+            return $metaData['og:image'];
+        }
         return $this->html->getByClass('article_img')?->getByTagName('img')?->getAttribute('src') ?? null;
     }
 

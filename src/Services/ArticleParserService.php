@@ -4,6 +4,7 @@ namespace Molitor\ArticleParser\Services;
 
 use Molitor\ArticleParser\Parsers\ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
+use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
 use Molitor\ArticleParser\Article\Article;
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
@@ -33,6 +34,9 @@ class ArticleParserService
                 break;
             case 'telex.hu':
                 $parser = new TelexArticleParser($html);
+                break;
+            case '444.hu':
+                $parser = new Hu444ArticleParser($html);
                 break;
             default:
                 return null;
