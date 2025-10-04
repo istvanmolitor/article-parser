@@ -13,34 +13,58 @@ use Molitor\HtmlParser\HtmlParser;
 
 class ArticleParserService
 {
-    public function getByUrl(string $url): Article|null
+    private array $map = [
+        '24.hu' => Hu24ArticleParser::class,
+        'index.hu' => IndexArticleParser::class,
+        'story.hu' => StoryHuArticleParser::class,
+        'telex.hu' => TelexArticleParser::class,
+        '444.hu' => Hu444ArticleParser::class,
+    ];
+
+    private function getHost(string $url): string
     {
+        return parse_url($url, PHP_URL_HOST);
+    }
+
+    public function isValidUrl(string $url): bool
+    {
+        $host = $this->getHost($url);
+        return array_key_exists($host, $this->map);
+    }
+
+    public function getParser(string $url): ArticleParser|null
+    {
+        if(!$this->isValidUrl($url)) {
+            return null;
+        }
+
         $content = @file_get_contents($url);
         if(!$content) {
             return null;
         }
-        $host = parse_url($url, PHP_URL_HOST);
-        $html = new HtmlParser($content);
 
-        switch ($host) {
-            case '24.hu':
-                $parser = new Hu24ArticleParser($html);
-                break;
-            case 'index.hu':
-                $parser = new IndexArticleParser($html);
-                break;
-            case 'story.hu':
-                $parser = new StoryHuArticleParser($html);
-                break;
-            case 'telex.hu':
-                $parser = new TelexArticleParser($html);
-                break;
-            case '444.hu':
-                $parser = new Hu444ArticleParser($html);
-                break;
-            default:
-                return null;
+        $host = $this->getHost($url);
+        $class = $this->map[$host];
+
+        return new $class(new HtmlParser($content));
+    }
+
+    public function getByUrl(string $url): Article|null
+    {
+        if(!$this->isValidUrl($url)) {
+            return null;
         }
+
+        $content = @file_get_contents($url);
+        if(!$content) {
+            return null;
+        }
+
+        $parser = $this->getParser($url);
+        if(!$parser) {
+            return null;
+        }
+
         return $this->getArticleByParser($url, $parser);
     }
 

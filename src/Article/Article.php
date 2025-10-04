@@ -81,7 +81,9 @@ class Article
 
     public function addAuthor(string $author): void
     {
-        $this->authors[] = $author;
+        if (!empty($author)) {
+            $this->authors[] = $author;
+        }
     }
 
     public function getAuthors(): array
