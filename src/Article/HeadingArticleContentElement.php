@@ -2,6 +2,4 @@
 
 namespace Molitor\ArticleParser\Article;
 
-class HeadingArticleContentElement extends ParagraphArticleContentElement
-{
-}
+class HeadingArticleContentElement extends ParagraphArticleContentElement {}

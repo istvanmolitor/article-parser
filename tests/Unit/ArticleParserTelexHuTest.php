@@ -1,19 +1,20 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Molitor\HtmlParser\HtmlParser;
 use Molitor\ArticleParser\Parsers\TelexArticleParser;
+use Molitor\HtmlParser\HtmlParser;
+use PHPUnit\Framework\TestCase;
 
 class ArticleParserTelexHuTest extends TestCase
 {
     private TelexArticleParser $parser;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $url = 'https://telex.hu/belfold/2025/09/24/szolo-utcai-javitointezet-jelentes-tuzson-bence-igazsagugyi-miniszter';
         $content = @file_get_contents($url);
         if ($content === false || $content === null) {
             $this->markTestSkipped('Skipped Telex tests: failed to download article content in current environment.');
+
             return;
         }
         $this->parser = new TelexArticleParser(new HtmlParser($content));
@@ -34,7 +35,7 @@ class ArticleParserTelexHuTest extends TestCase
     public function test_telex_lead(): void
     {
         $lead = 'A részleteket a kormányülés után ismertették, a döntések több millió embert érintenek.';
-        $this->assertSame($lead, (string)$this->parser->getLead());
+        $this->assertSame($lead, (string) $this->parser->getLead());
     }
 
     public function test_telex_main_image_src(): void
@@ -46,7 +47,7 @@ class ArticleParserTelexHuTest extends TestCase
     public function test_telex_main_image_alt(): void
     {
         $alt = '';
-        $this->assertSame($alt, (string)$this->parser->getMainImageAlt());
+        $this->assertSame($alt, (string) $this->parser->getMainImageAlt());
     }
 
     public function test_telex_main_author(): void

@@ -8,9 +8,9 @@ class ArticleParserServiceTest extends TestCase
 {
     private Article $article;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $service = new ArticleParserService();
+        $service = new ArticleParserService;
         $this->article = $service->getByUrl('https://story.hu/cimlapsztori/2025/09/07/racz-gyuricza-dora-en-sem-vagyok-mindig-csipkeben-galeria/');
     }
 
@@ -20,17 +20,20 @@ class ArticleParserServiceTest extends TestCase
         $this->assertSame($title, $this->article->getTitle());
     }
 
-    public function test_story_hu_lead(): void {
+    public function test_story_hu_lead(): void
+    {
         $lead = 'Gyuricza Dórával nem fordulhat elő, hogy smink nélkül, kócosan lép ki az utcára. Rácz Jenő feleségének igényessége nem csak önmagának szól.';
         $this->assertSame($lead, $this->article->getLead());
     }
 
-    public function test_story_hu_main_image_src(): void {
+    public function test_story_hu_main_image_src(): void
+    {
         $src = 'https://story.hu/uploads/2025/09/racz-gyuricza-dora.jpg';
         $this->assertSame($src, $this->article->getMainImage()->getSrc());
     }
 
-    public function test_story_hu_main_image_alt(): void {
+    public function test_story_hu_main_image_alt(): void
+    {
         $this->assertNull($this->article->getMainImage()->getAlt());
     }
 

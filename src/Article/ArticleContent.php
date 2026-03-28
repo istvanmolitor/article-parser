@@ -12,9 +12,10 @@ class ArticleContent
     {
         $elements = [];
         /** @var ArticleContentElement $element */
-        foreach($this->elements as $element) {
+        foreach ($this->elements as $element) {
             $elements[] = $element->toArray();
         }
+
         return $elements;
     }
 
@@ -26,9 +27,10 @@ class ArticleContent
     public function __toString(): string
     {
         $elements = [];
-        foreach($this->elements as $element) {
-            $elements[] = (string)$element;
+        foreach ($this->elements as $element) {
+            $elements[] = (string) $element;
         }
+
         return implode(' ', $elements);
     }
 
@@ -36,6 +38,7 @@ class ArticleContent
     {
         $paragraph = new ParagraphArticleContentElement($content);
         $this->add($paragraph);
+
         return $paragraph;
     }
 
@@ -43,6 +46,7 @@ class ArticleContent
     {
         $image = new ImageArticleContentElement(new ArticleImage($src));
         $this->add($image);
+
         return $image;
     }
 
@@ -50,6 +54,7 @@ class ArticleContent
     {
         $list = new ListArticleContentElement($items);
         $this->add($list);
+
         return $list;
     }
 
@@ -57,6 +62,7 @@ class ArticleContent
     {
         $quote = new QuoteArticleContentElement($content);
         $this->add($quote);
+
         return $quote;
     }
 
@@ -64,6 +70,7 @@ class ArticleContent
     {
         $heading = new HeadingArticleContentElement($content);
         $this->add($heading);
+
         return $heading;
     }
 
@@ -71,6 +78,7 @@ class ArticleContent
     {
         $video = new VideoArticleContentElement($src);
         $this->add($video);
+
         return $video;
     }
 
@@ -78,6 +86,7 @@ class ArticleContent
     {
         $iframe = new IFrameArticleContentElement($src);
         $this->add($iframe);
+
         return $iframe;
     }
 
@@ -96,17 +105,17 @@ class ArticleContent
         return isset($this->elements[$index]);
     }
 
-    public function get(int $index): null|ArticleContentElement
+    public function get(int $index): ?ArticleContentElement
     {
         return $this->elements[$index] ?? null;
     }
 
-    public function getFirst(): null|ArticleContentElement
+    public function getFirst(): ?ArticleContentElement
     {
         return $this->get(0);
     }
 
-    public function getLast(): null|ArticleContentElement
+    public function getLast(): ?ArticleContentElement
     {
         return $this->get(count($this->elements) - 1);
     }

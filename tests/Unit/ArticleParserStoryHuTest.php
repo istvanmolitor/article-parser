@@ -1,14 +1,14 @@
 <?php
 
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
-use PHPUnit\Framework\TestCase;
 use Molitor\HtmlParser\HtmlParser;
+use PHPUnit\Framework\TestCase;
 
 class ArticleParserStoryHuTest extends TestCase
 {
     private StoryHuArticleParser $parser;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $content = file_get_contents('https://story.hu/cimlapsztori/2025/09/07/racz-gyuricza-dora-en-sem-vagyok-mindig-csipkeben-galeria/');
         $this->parser = new StoryHuArticleParser(new HtmlParser($content));
@@ -25,17 +25,20 @@ class ArticleParserStoryHuTest extends TestCase
         $this->assertSame($title, $this->parser->getTitle());
     }
 
-    public function test_story_hu_lead(): void {
+    public function test_story_hu_lead(): void
+    {
         $lead = 'Gyuricza Dórával nem fordulhat elő, hogy smink nélkül, kócosan lép ki az utcára. Rácz Jenő feleségének igényessége nem csak önmagának szól.';
         $this->assertSame($lead, $this->parser->getLead());
     }
 
-    public function test_story_hu_main_image_src(): void {
+    public function test_story_hu_main_image_src(): void
+    {
         $src = 'https://story.hu/uploads/2025/09/racz-gyuricza-dora.jpg';
         $this->assertSame($src, $this->parser->getMainImageSrc());
     }
 
-    public function test_story_hu_main_image_alt(): void {
+    public function test_story_hu_main_image_alt(): void
+    {
         $this->assertNull($this->parser->getMainImageAlt());
     }
 

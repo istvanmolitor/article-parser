@@ -8,9 +8,10 @@ class VideoArticleContentElement extends ArticleContentElement
 
     protected string $type;
 
-    protected null|string $title = null;
+    protected ?string $title = null;
 
-    public function __construct(string $src) {
+    public function __construct(string $src)
+    {
         $this->src = $src;
         $this->type = $this->getTypeBySrc($src);
     }
@@ -23,7 +24,7 @@ class VideoArticleContentElement extends ArticleContentElement
         }
 
         $host = '';
-        $ext  = '';
+        $ext = '';
 
         $parts = @parse_url($src);
         if (is_array($parts)) {
@@ -127,17 +128,11 @@ class VideoArticleContentElement extends ArticleContentElement
         ];
     }
 
-    /**
-     * @param string $src
-     */
     public function setSrc(string $src): void
     {
         $this->src = $src;
     }
 
-    /**
-     * @return string
-     */
     public function getSrc(): string
     {
         return $this->src;
@@ -148,17 +143,11 @@ class VideoArticleContentElement extends ArticleContentElement
         return $this->type;
     }
 
-    /**
-     * @param string|null $title
-     */
     public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -166,6 +155,6 @@ class VideoArticleContentElement extends ArticleContentElement
 
     public function __toString(): string
     {
-        return (string)$this->title;
+        return (string) $this->title;
     }
 }

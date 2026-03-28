@@ -6,49 +6,40 @@ class ArticleImage
 {
     protected string $src;
 
-    protected null|string $alt;
+    protected ?string $alt;
 
-    protected null|string $author;
+    protected ?string $author;
 
     public function __construct(string $src)
     {
         $this->src = $src;
     }
 
-    public function setAuthor(null|string $author): void
+    public function setAuthor(?string $author): void
     {
         $this->author = $author;
     }
 
-    public function getAuthor(): null|string
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
 
-    public function setAlt(null|string $alt): void
+    public function setAlt(?string $alt): void
     {
         $this->alt = $alt;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getAlt(): null|string
+    public function getAlt(): ?string
     {
         return $this->alt;
     }
 
-    /**
-     * @return string
-     */
     public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     */
     public function setSrc(string $src): void
     {
         $this->src = $src;

@@ -22,6 +22,7 @@ class TelexArticleParser extends ArticleParser
         if (isset($metaData['og:image'])) {
             return $metaData['og:image'];
         }
+
         return $this->html->getByClass('article_img')?->getByTagName('img')?->getAttribute('src') ?? null;
     }
 
@@ -39,6 +40,7 @@ class TelexArticleParser extends ArticleParser
             $dt = date_create($timeAttr);
             if ($dt) {
                 $dt->setTimezone(new \DateTimeZone('UTC'));
+
                 return $dt->format('Y-m-d H:i:s');
             }
         }
@@ -47,9 +49,11 @@ class TelexArticleParser extends ArticleParser
             $dt = date_create($meta['article:published_time']);
             if ($dt) {
                 $dt->setTimezone(new \DateTimeZone('UTC'));
+
                 return $dt->format('Y-m-d H:i:s');
             }
         }
+
         return null;
     }
 
@@ -65,6 +69,7 @@ class TelexArticleParser extends ArticleParser
         if ($lead) {
             return $lead;
         }
+
         // fallback to meta description via parent
         return parent::getLead();
     }
@@ -80,6 +85,7 @@ class TelexArticleParser extends ArticleParser
         if ($by) {
             return $by;
         }
+
         return null;
     }
 

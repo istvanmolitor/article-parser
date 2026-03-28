@@ -3,7 +3,6 @@
 namespace Molitor\ArticleParser\Parsers;
 
 use Molitor\ArticleParser\Article\ArticleContent;
-use Molitor\ArticleParser\Article\ArticleImage;
 use Molitor\HtmlParser\HtmlParser;
 
 class IndexArticleParser extends ArticleParser
@@ -20,20 +19,20 @@ class IndexArticleParser extends ArticleParser
 
     public function getTitle(): string
     {
-        return (string)$this->html->getByClass('content-title')?->getText();
+        return (string) $this->html->getByClass('content-title')?->getText();
     }
 
-    public function getMainImageSrc(): null|string
+    public function getMainImageSrc(): ?string
     {
-        return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('src')??null;
+        return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('src') ?? null;
     }
 
-    public function getMainImageAlt(): null|string
+    public function getMainImageAlt(): ?string
     {
         return $this->html->getByClass('cikk-cover')?->getByTagName('img')?->getAttribute('alt');
     }
 
-    public function getCreatedAt(): string|null
+    public function getCreatedAt(): ?string
     {
         return null;
     }
@@ -45,7 +44,7 @@ class IndexArticleParser extends ArticleParser
 
     public function getLead(): string
     {
-        return (string)$this->html->getByClass('lead_container')?->getText();
+        return (string) $this->html->getByClass('lead_container')?->getText();
     }
 
     public function getAuthors(): null|string|array
@@ -53,7 +52,7 @@ class IndexArticleParser extends ArticleParser
         return $this->html->getByClass('szerzok_container')?->getByClass('szerzo')?->getText();
     }
 
-    public function getArticleContentWrapper(): null|HtmlParser
+    public function getArticleContentWrapper(): ?HtmlParser
     {
         return $this->html->getByClass('cikk-torzs');
     }
@@ -61,16 +60,15 @@ class IndexArticleParser extends ArticleParser
     public function parseArticleContentElement(ArticleContent $content, HtmlParser $element): void
     {
         $tagName = $element->getFirstTagName();
-        if($tagName === 'div') {
-            if($element->classExists('eyecatcher_long')) {
+        if ($tagName === 'div') {
+            if ($element->classExists('eyecatcher_long')) {
                 $content->addHeading($element->getText());
-            }
-            elseif($element->classExists('szerkfotoimage')) {
+            } elseif ($element->classExists('szerkfotoimage')) {
                 $imageData = $element->getByClass('szerkfotoimage')?->getByTagName('img')?->parseImage();
-                if($imageData) {
+                if ($imageData) {
 
                     $imageAuthor = $element?->getByClass('photographer')?->getText();
-                    if($imageAuthor) {
+                    if ($imageAuthor) {
                         $imageAuthor = substr($imageAuthor, 6);
                     }
 
@@ -78,15 +76,13 @@ class IndexArticleParser extends ArticleParser
                     $image->setAlt($imageData['alt'] ?? null);
                     $image->setAuthor($imageAuthor);
                 }
-            }
-            elseif($element->classExists('yt-video-container')) {
+            } elseif ($element->classExists('yt-video-container')) {
                 $videoData = $element?->getByTagName('iframe')?->getAttributes();
-                if($videoData) {
+                if ($videoData) {
                     $video = $content->addVideo($videoData['src']);
                 }
             }
         }
-
 
         parent::parseArticleContentElement($content, $element);
     }

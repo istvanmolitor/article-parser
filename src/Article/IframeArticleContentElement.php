@@ -6,9 +6,7 @@ class IframeArticleContentElement extends ArticleContentElement
 {
     public function __construct(
         protected string $src
-    )
-    {
-    }
+    ) {}
 
     public function getData(): array
     {

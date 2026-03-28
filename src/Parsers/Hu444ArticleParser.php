@@ -16,12 +16,13 @@ class Hu444ArticleParser extends ArticleParser
         return true;
     }
 
-    public function getMainImageSrc(): null|string
+    public function getMainImageSrc(): ?string
     {
         $imageData = $this->html->getBiggestImage()?->parseImage();
-        if(!$imageData) {
+        if (! $imageData) {
             return null;
         }
+
         return $imageData['src'];
     }
 
@@ -30,22 +31,22 @@ class Hu444ArticleParser extends ArticleParser
         return '';
     }
 
-    public function getMainImageAlt(): null|string
+    public function getMainImageAlt(): ?string
     {
         return null;
     }
 
-    public function getCreatedAt(): null|string
+    public function getCreatedAt(): ?string
     {
         return null;
     }
 
-    public function getMainImageAuthor(): null|string
+    public function getMainImageAuthor(): ?string
     {
         return null;
     }
 
-    public function getArticleContentWrapper(): null|HtmlParser
+    public function getArticleContentWrapper(): ?HtmlParser
     {
         return null;
     }

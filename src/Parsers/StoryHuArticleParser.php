@@ -6,7 +6,6 @@ use Molitor\HtmlParser\HtmlParser;
 
 class StoryHuArticleParser extends ArticleParser
 {
-
     public function getPortal(): string
     {
         return 'story.hu';
@@ -22,31 +21,32 @@ class StoryHuArticleParser extends ArticleParser
         return $this->html->getByClass('herald-author-name')?->getText();
     }
 
-    public function getMainImageSrc(): null|string
+    public function getMainImageSrc(): ?string
     {
         return $this->html->getByClass('herald-post-thumbnail-single')?->getByTagName('img')?->getAttribute('src') ?? null;
     }
 
-    public function getMainImageAlt(): null|string
+    public function getMainImageAlt(): ?string
     {
         return $this->html->getByTagName('wp-post-image')?->getAttribute('title');
     }
 
-    public function getCreatedAt(): null|string
+    public function getCreatedAt(): ?string
     {
         $time = $this->html->getByClass('updated')?->getText();
-        if(!$time) {
+        if (! $time) {
             return null;
         }
-        return $this->makeTime($time . ' 00:00:00','Y-m-d H:i:s', 'Europe/Budapest');
+
+        return $this->makeTime($time.' 00:00:00', 'Y-m-d H:i:s', 'Europe/Budapest');
     }
 
     public function getMainImageAuthor(): string
     {
-       return '';
+        return '';
     }
 
-    public function getArticleContentWrapper(): null|HtmlParser
+    public function getArticleContentWrapper(): ?HtmlParser
     {
         return $this->html->getByClass('entry-content');
     }

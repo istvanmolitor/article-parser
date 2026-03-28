@@ -12,7 +12,7 @@ class Article
 
     private array $authors = [];
 
-    private ArticleImage|null $mainImage = null;
+    private ?ArticleImage $mainImage = null;
 
     private string $lead;
 
@@ -20,11 +20,11 @@ class Article
 
     private ArticleContent $content;
 
-    private string|null $createdAt;
+    private ?string $createdAt;
 
     public function __construct()
     {
-        $this->content = new ArticleContent();
+        $this->content = new ArticleContent;
     }
 
     public function toArray(): array
@@ -44,36 +44,24 @@ class Article
 
     public function __toString(): string
     {
-        return implode(' ', $this->title . ' ' . $this->lead . ' ' . $this->content);
+        return implode(' ', $this->title.' '.$this->lead.' '.$this->content);
     }
 
-    /**
-     * @return string
-     */
     public function getPortal(): string
     {
         return $this->portal;
     }
 
-    /**
-     * @param string $portal
-     */
     public function setPortal(string $portal): void
     {
         $this->portal = $portal;
     }
 
-    /**
-     * @param string $url
-     */
     public function setUrl(string $url): void
     {
         $this->url = $url;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
@@ -81,7 +69,7 @@ class Article
 
     public function addAuthor(string $author): void
     {
-        if (!empty($author)) {
+        if (! empty($author)) {
             $this->authors[] = $author;
         }
     }
@@ -96,43 +84,31 @@ class Article
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getLead(): string
     {
         return $this->lead;
     }
 
-    /**
-     * @param string $lead
-     */
     public function setLead(string $lead): void
     {
         $this->lead = $lead;
     }
 
-    public function getMainImage(): ArticleImage|null
+    public function getMainImage(): ?ArticleImage
     {
         return $this->mainImage;
     }
 
-    public function setMainImage(ArticleImage|null $mainImage): void
+    public function setMainImage(?ArticleImage $mainImage): void
     {
         $this->mainImage = $mainImage;
     }
 
-    /**
-     * @return array
-     */
     public function getKeywords(): array
     {
         return $this->keywords;
@@ -143,25 +119,16 @@ class Article
         $this->keywords[] = $keyword;
     }
 
-    /**
-     * @return ArticleContent
-     */
     public function getContent(): ArticleContent
     {
         return $this->content;
     }
 
-    /**
-     * @param ArticleContent $content
-     */
     public function setContent(ArticleContent $content): void
     {
         $this->content = $content;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCreatedAt(): ?string
     {
         return $this->createdAt;

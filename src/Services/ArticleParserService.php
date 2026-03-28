@@ -2,11 +2,11 @@
 
 namespace Molitor\ArticleParser\Services;
 
+use Molitor\ArticleParser\Article\Article;
 use Molitor\ArticleParser\Parsers\ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
-use Molitor\ArticleParser\Article\Article;
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
 use Molitor\ArticleParser\Parsers\TelexArticleParser;
 use Molitor\HtmlParser\HtmlParser;
@@ -29,17 +29,18 @@ class ArticleParserService
     public function isValidUrl(string $url): bool
     {
         $host = $this->getHost($url);
+
         return array_key_exists($host, $this->map);
     }
 
-    public function getParser(string $url): ArticleParser|null
+    public function getParser(string $url): ?ArticleParser
     {
-        if(!$this->isValidUrl($url)) {
+        if (! $this->isValidUrl($url)) {
             return null;
         }
 
         $content = @file_get_contents($url);
-        if(!$content) {
+        if (! $content) {
             return null;
         }
 
@@ -49,31 +50,31 @@ class ArticleParserService
         return new $class(new HtmlParser($content));
     }
 
-    public function getByUrl(string $url): Article|null
+    public function getByUrl(string $url): ?Article
     {
-        if(!$this->isValidUrl($url)) {
+        if (! $this->isValidUrl($url)) {
             return null;
         }
 
         $content = @file_get_contents($url);
-        if(!$content) {
+        if (! $content) {
             return null;
         }
 
         $parser = $this->getParser($url);
-        if(!$parser) {
+        if (! $parser) {
             return null;
         }
 
         return $this->getArticleByParser($url, $parser);
     }
 
-    private function getArticleByParser(string $url, ArticleParser $parser): Article|null
+    private function getArticleByParser(string $url, ArticleParser $parser): ?Article
     {
-        if(!$parser->isValidArticle()) {
+        if (! $parser->isValidArticle()) {
             return null;
         }
-        $article = new Article();
+        $article = new Article;
         $article->setPortal($parser->getPortal());
         $article->setUrl($url);
         $article->setTitle($parser->getTitle());
@@ -83,12 +84,11 @@ class ArticleParserService
         $article->setCreatedAt($parser->getCreatedAt());
 
         $author = $parser->getAuthors();
-        if(is_array($author)) {
-            foreach($author as $authorName) {
+        if (is_array($author)) {
+            foreach ($author as $authorName) {
                 $article->addAuthor($authorName);
             }
-        }
-        elseif(is_string($author)) {
+        } elseif (is_string($author)) {
             $article->addAuthor($author);
         }
 

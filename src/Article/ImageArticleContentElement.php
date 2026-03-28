@@ -26,35 +26,33 @@ class ImageArticleContentElement extends ArticleContentElement
         return $this->image;
     }
 
-    /**
-     * @param ArticleImage $image
-     */
     public function setImage(ArticleImage $image): void
     {
         $this->image = $image;
     }
 
-    public function getAlt(): null|string
+    public function getAlt(): ?string
     {
         return $this->image->getAlt();
     }
 
-    public function setAlt(null|string $alt): void
+    public function setAlt(?string $alt): void
     {
         $this->image->setAlt($alt);
     }
 
-    public function getAuthor(): null|string
+    public function getAuthor(): ?string
     {
         return $this->image->getAuthor();
     }
 
-    public function setAuthor(null|string $author): void
+    public function setAuthor(?string $author): void
     {
         $this->image->setAuthor($author);
     }
 
-    public function getSrc(): string {
+    public function getSrc(): string
+    {
         return $this->image->getSrc();
     }
 }
