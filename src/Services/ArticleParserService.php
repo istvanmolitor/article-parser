@@ -23,19 +23,51 @@ class ArticleParserService
 
     private function getHost(string $url): string
     {
-        return parse_url($url, PHP_URL_HOST);
+        $host = parse_url($url, PHP_URL_HOST);
+
+        if (! is_string($host)) {
+            return '';
+        }
+
+        return strtolower($host);
+    }
+
+    private function resolveParserClass(string $url): ?string
+    {
+        $host = $this->getHost($url);
+
+        if ($host === '') {
+            return null;
+        }
+
+        $normalizedHost = preg_replace('/^www\./', '', $host);
+
+        if (! is_string($normalizedHost) || $normalizedHost === '') {
+            return null;
+        }
+
+        if (array_key_exists($normalizedHost, $this->map)) {
+            return $this->map[$normalizedHost];
+        }
+
+        foreach ($this->map as $supportedHost => $parserClass) {
+            if (str_ends_with($normalizedHost, '.'.$supportedHost)) {
+                return $parserClass;
+            }
+        }
+
+        return null;
     }
 
     public function isValidUrl(string $url): bool
     {
-        $host = $this->getHost($url);
-
-        return array_key_exists($host, $this->map);
+        return $this->resolveParserClass($url) !== null;
     }
 
     public function getParser(string $url): ?ArticleParser
     {
-        if (! $this->isValidUrl($url)) {
+        $class = $this->resolveParserClass($url);
+        if (! $class) {
             return null;
         }
 
@@ -43,23 +75,12 @@ class ArticleParserService
         if (! $content) {
             return null;
         }
-
-        $host = $this->getHost($url);
-        $class = $this->map[$host];
 
         return new $class(new HtmlParser($content));
     }
 
     public function getByUrl(string $url): ?Article
     {
-        if (! $this->isValidUrl($url)) {
-            return null;
-        }
-
-        $content = @file_get_contents($url);
-        if (! $content) {
-            return null;
-        }
 
         $parser = $this->getParser($url);
         if (! $parser) {
