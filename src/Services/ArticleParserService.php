@@ -101,6 +101,7 @@ class ArticleParserService
         $article->setTitle($parser->getTitle());
         $article->setMainImage($parser->getMainImage());
         $article->setLead($parser->getLead());
+        $article->setLanguage($parser->getLanguage() ?? 'hu');
         $article->setContent($parser->getArticleContent());
         $article->setCreatedAt($parser->getCreatedAt());
 

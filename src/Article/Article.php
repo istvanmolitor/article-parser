@@ -16,6 +16,8 @@ class Article
 
     private string $lead;
 
+    private string $language = 'hu';
+
     private array $keywords = [];
 
     private ArticleContent $content;
@@ -38,6 +40,7 @@ class Article
             'lead' => $this->lead,
             'keywords' => $this->keywords,
             'content' => $this->content->toArray(),
+            'language' => $this->language,
             'createdAt' => $this->createdAt,
         ];
     }
@@ -137,5 +140,15 @@ class Article
     public function setCreatedAt(?string $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
     }
 }

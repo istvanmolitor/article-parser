@@ -47,6 +47,11 @@ abstract class ArticleParser
 
     abstract public function getMainImageAuthor(): ?string;
 
+    public function getLanguage(): ?string
+    {
+        return 'hu';
+    }
+
     public function getLead(): ?string
     {
         $metaData = $this->html->parseMetaData();
