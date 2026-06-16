@@ -65,7 +65,7 @@ class TelexArticleParser extends ArticleParser
     public function getLead(): ?string
     {
         // Telex commonly uses a lead/standfirst paragraph near the top, often with class "lead" or within header
-        $lead = $this->html->getByClass('lead')?->getText();
+        $lead = $this->html->getByClass('lead')?->getTextWithLinks();
         if ($lead) {
             return $lead;
         }

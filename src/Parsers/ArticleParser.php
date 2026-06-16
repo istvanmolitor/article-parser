@@ -91,13 +91,13 @@ abstract class ArticleParser
     {
         $type = $element->getFirstTagName();
         if ($type === 'p') {
-            $content->add(new ParagraphArticleContentElement($element->getText()));
+            $content->add(new ParagraphArticleContentElement($element->getTextWithLinks()));
         } elseif ($type == 'ul') {
             $content->addList($element->getListByTagName('li')->getTexts());
         } elseif ($type == 'blockquote') {
-            $content->addQuote($element->getText());
+            $content->addQuote($element->getTextWithLinks());
         } elseif ($type == 'h1' || $type == 'h2' || $type == 'h3') {
-            $content->addHeading($element->getText());
+            $content->addHeading($element->getTextWithLinks());
         } elseif ($type == 'img') {
             $content->addImage($element->getAttributes()['src']);
         } elseif ($type == 'iframe') {

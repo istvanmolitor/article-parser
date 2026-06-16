@@ -38,10 +38,10 @@ class Article
         $html .= '<header>';
         $html .= '<h1><a href="'.$e($this->url).'">'.$e($this->title).'</a></h1>';
         if (!empty($this->authors)) {
-            $html .= '<p>'.implode(', ', array_map($e, $this->authors)).'</p>';
+            $html .= '<p>Szerzők: '.implode(', ', array_map($e, $this->authors)).'</p>';
         }
         if (!empty($this->portal)) {
-            $html .= '<p>'.$e($this->portal).'</p>';
+            $html .= '<p>Portal: '.$e($this->portal).'</p>';
         }
         if (!empty($this->createdAt)) {
             $html .= '<time datetime="'.$e($this->createdAt).'">'.$e($this->createdAt).'</time>';
@@ -52,7 +52,7 @@ class Article
             $html .= $this->mainImage->toHtml();
         }
 
-        $html .= '<p>'.$e($this->lead).'</p>';
+        $html .= '<p>' . $this->lead . '</p>';
         $html .= $this->content->toHtml();
 
         if (!empty($this->keywords)) {

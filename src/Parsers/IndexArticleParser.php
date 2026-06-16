@@ -44,7 +44,7 @@ class IndexArticleParser extends ArticleParser
 
     public function getLead(): string
     {
-        return (string) $this->html->getByClass('lead_container')?->getText();
+        return (string) $this->html->getByClass('lead_container')?->getTextWithLinks();
     }
 
     public function getAuthors(): null|string|array
@@ -62,7 +62,7 @@ class IndexArticleParser extends ArticleParser
         $tagName = $element->getFirstTagName();
         if ($tagName === 'div') {
             if ($element->classExists('eyecatcher_long')) {
-                $content->addHeading($element->getText());
+                $content->addHeading($element->getTextWithLinks());
             } elseif ($element->classExists('szerkfotoimage')) {
                 $imageData = $element->getByClass('szerkfotoimage')?->getByTagName('img')?->parseImage();
                 if ($imageData) {
