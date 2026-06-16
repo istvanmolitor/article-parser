@@ -71,7 +71,7 @@ class NepszavaArticleParser extends ArticleParser
     public function parseArticleContentElement(ArticleContent $content, HtmlParser $element): void
     {
         if ($element->getFirstTagName() === 'div') {
-            $text = $element->getTextWithLinks();
+            $text = $element->getSimpleHtml()?->getHtml();
             if ($text) {
                 $content->addQuote($text);
             }

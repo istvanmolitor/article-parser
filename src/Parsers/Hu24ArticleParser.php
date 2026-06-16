@@ -50,7 +50,7 @@ class Hu24ArticleParser extends ArticleParser
     {
         $pTag = $this->html->getByClass('u-onlyArticlePages')->getByTagName('p');
         if ($pTag) {
-            return $pTag->getTextWithLinks();
+            return $pTag->getSimpleHtml()?->getHtml() ?? '';
         }
 
         return '';

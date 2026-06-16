@@ -20,7 +20,7 @@ class PortfolioArticleParser extends ArticleParser
 
     public function getLead(): ?string
     {
-        return $this->html->getByClass('pfarticle-section-lead')?->getTextWithLinks();
+        return $this->html->getByClass('pfarticle-section-lead')?->getSimpleHtml()?->getHtml();
     }
 
     public function getAuthors(): null|string|array

@@ -25,7 +25,7 @@ class OrigoArticleParser extends ArticleParser
 
     public function getLead(): ?string
     {
-        return $this->html->getByClass('article-lead')?->getTextWithLinks();
+        return $this->html->getByClass('article-lead')?->getSimpleHtml()?->getHtml();
     }
 
     public function getAuthors(): null|string|array
@@ -79,7 +79,7 @@ class OrigoArticleParser extends ArticleParser
             }
         } elseif ($type === 'span') {
             foreach ($element->getListByTagName('p') as $p) {
-                $text = $p->getTextWithLinks();
+                $text = $p->getSimpleHtml()?->getHtml();
                 if ($text) {
                     $content->addQuote($text);
                 }
