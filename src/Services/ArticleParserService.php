@@ -10,6 +10,7 @@ use Molitor\ArticleParser\Parsers\ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
+use Molitor\ArticleParser\Parsers\KiskegyedArticleParser;
 use Molitor\ArticleParser\Parsers\OrigoArticleParser;
 use Molitor\ArticleParser\Parsers\PortfolioArticleParser;
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
@@ -21,6 +22,7 @@ class ArticleParserService
     private array $map = [
         '24.hu' => Hu24ArticleParser::class,
         'index.hu' => IndexArticleParser::class,
+        'kiskegyed.hu' => KiskegyedArticleParser::class,
         'origo.hu' => OrigoArticleParser::class,
         'portfolio.hu' => PortfolioArticleParser::class,
         'story.hu' => StoryHuArticleParser::class,
