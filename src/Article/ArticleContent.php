@@ -82,9 +82,9 @@ class ArticleContent
         return $video;
     }
 
-    public function addIframe(string $src): IFrameArticleContentElement
+    public function addIframe(string $src): IframeArticleContentElement
     {
-        $iframe = new IFrameArticleContentElement($src);
+        $iframe = new IframeArticleContentElement($src);
         $this->add($iframe);
 
         return $iframe;

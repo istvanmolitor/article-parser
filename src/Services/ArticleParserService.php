@@ -15,7 +15,9 @@ use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
 use Molitor\ArticleParser\Parsers\KiskegyedArticleParser;
 use Molitor\ArticleParser\Parsers\OrigoArticleParser;
+use Molitor\ArticleParser\Parsers\PortArticleParser;
 use Molitor\ArticleParser\Parsers\PortfolioArticleParser;
+use Molitor\ArticleParser\Parsers\ProhardverArticleParser;
 use Molitor\ArticleParser\Parsers\StoryHuArticleParser;
 use Molitor\ArticleParser\Parsers\TelexArticleParser;
 use Molitor\HtmlParser\HtmlParser;
@@ -30,7 +32,9 @@ class ArticleParserService
         'index.hu' => IndexArticleParser::class,
         'kiskegyed.hu' => KiskegyedArticleParser::class,
         'origo.hu' => OrigoArticleParser::class,
+        'port.hu' => PortArticleParser::class,
         'portfolio.hu' => PortfolioArticleParser::class,
+        'prohardver.hu' => ProhardverArticleParser::class,
         'story.hu' => StoryHuArticleParser::class,
         'telex.hu' => TelexArticleParser::class,
         '444.hu' => Hu444ArticleParser::class,
