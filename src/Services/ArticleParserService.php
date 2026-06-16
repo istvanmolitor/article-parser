@@ -3,6 +3,9 @@
 namespace Molitor\ArticleParser\Services;
 
 use Molitor\ArticleParser\Article\Article;
+use Molitor\ArticleParser\Exceptions\ArticleFetchException;
+use Molitor\ArticleParser\Exceptions\InvalidArticleException;
+use Molitor\ArticleParser\Exceptions\UnsupportedUrlException;
 use Molitor\ArticleParser\Parsers\ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
 use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
@@ -32,18 +35,19 @@ class ArticleParserService
         return strtolower($host);
     }
 
-    private function resolveParserClass(string $url): ?string
+    /** @throws UnsupportedUrlException */
+    private function resolveParserClass(string $url): string
     {
         $host = $this->getHost($url);
 
         if ($host === '') {
-            return null;
+            throw new UnsupportedUrlException("Invalid URL: {$url}");
         }
 
         $normalizedHost = preg_replace('/^www\./', '', $host);
 
         if (! is_string($normalizedHost) || $normalizedHost === '') {
-            return null;
+            throw new UnsupportedUrlException("Could not normalize host for URL: {$url}");
         }
 
         if (array_key_exists($normalizedHost, $this->map)) {
@@ -56,45 +60,48 @@ class ArticleParserService
             }
         }
 
-        return null;
+        throw new UnsupportedUrlException("No parser found for host: {$normalizedHost}");
     }
 
     public function isValidUrl(string $url): bool
     {
-        return $this->resolveParserClass($url) !== null;
+        try {
+            $this->resolveParserClass($url);
+
+            return true;
+        } catch (UnsupportedUrlException) {
+            return false;
+        }
     }
 
-    public function getParser(string $url): ?ArticleParser
+    /** @throws UnsupportedUrlException|ArticleFetchException */
+    public function getParser(string $url): ArticleParser
     {
         $class = $this->resolveParserClass($url);
-        if (! $class) {
-            return null;
-        }
 
         $content = @file_get_contents($url);
         if (! $content) {
-            return null;
+            throw new ArticleFetchException("Failed to fetch content from URL: {$url}");
         }
 
         return new $class(new HtmlParser($content));
     }
 
-    public function getByUrl(string $url): ?Article
+    /** @throws UnsupportedUrlException|ArticleFetchException|InvalidArticleException */
+    public function getByUrl(string $url): Article
     {
-
         $parser = $this->getParser($url);
-        if (! $parser) {
-            return null;
-        }
 
         return $this->getArticleByParser($url, $parser);
     }
 
-    private function getArticleByParser(string $url, ArticleParser $parser): ?Article
+    /** @throws InvalidArticleException */
+    private function getArticleByParser(string $url, ArticleParser $parser): Article
     {
         if (! $parser->isValidArticle()) {
-            return null;
+            throw new InvalidArticleException("URL does not point to a valid article: {$url}");
         }
+
         $article = new Article;
         $article->setPortal($parser->getPortal());
         $article->setUrl($url);
