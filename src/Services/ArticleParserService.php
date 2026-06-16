@@ -7,7 +7,10 @@ use Molitor\ArticleParser\Exceptions\ArticleFetchException;
 use Molitor\ArticleParser\Exceptions\InvalidArticleException;
 use Molitor\ArticleParser\Exceptions\UnsupportedUrlException;
 use Molitor\ArticleParser\Parsers\ArticleParser;
+use Molitor\ArticleParser\Parsers\FeminaArticleParser;
+use Molitor\ArticleParser\Parsers\GlamourArticleParser;
 use Molitor\ArticleParser\Parsers\Hu24ArticleParser;
+use Molitor\ArticleParser\Parsers\NepszavaArticleParser;
 use Molitor\ArticleParser\Parsers\Hu444ArticleParser;
 use Molitor\ArticleParser\Parsers\IndexArticleParser;
 use Molitor\ArticleParser\Parsers\KiskegyedArticleParser;
@@ -21,6 +24,9 @@ class ArticleParserService
 {
     private array $map = [
         '24.hu' => Hu24ArticleParser::class,
+        'femina.hu' => FeminaArticleParser::class,
+        'glamour.hu' => GlamourArticleParser::class,
+        'nepszava.hu' => NepszavaArticleParser::class,
         'index.hu' => IndexArticleParser::class,
         'kiskegyed.hu' => KiskegyedArticleParser::class,
         'origo.hu' => OrigoArticleParser::class,
