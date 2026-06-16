@@ -29,6 +29,41 @@ class Article
         $this->content = new ArticleContent;
     }
 
+    public function toHtml(): string
+    {
+        $e = fn (string $s) => htmlspecialchars($s, ENT_QUOTES);
+
+        $html = '<article lang="'.$e($this->language).'">';
+
+        $html .= '<header>';
+        $html .= '<h1><a href="'.$e($this->url).'">'.$e($this->title).'</a></h1>';
+        if (!empty($this->authors)) {
+            $html .= '<p>'.implode(', ', array_map($e, $this->authors)).'</p>';
+        }
+        if (!empty($this->portal)) {
+            $html .= '<p>'.$e($this->portal).'</p>';
+        }
+        if (!empty($this->createdAt)) {
+            $html .= '<time datetime="'.$e($this->createdAt).'">'.$e($this->createdAt).'</time>';
+        }
+        $html .= '</header>';
+
+        if ($this->mainImage !== null) {
+            $html .= $this->mainImage->toHtml();
+        }
+
+        $html .= '<p>'.$e($this->lead).'</p>';
+        $html .= $this->content->toHtml();
+
+        if (!empty($this->keywords)) {
+            $html .= '<ul>'.implode('', array_map(fn ($k) => '<li>'.$e($k).'</li>', $this->keywords)).'</ul>';
+        }
+
+        $html .= '</article>';
+
+        return $html;
+    }
+
     public function toArray(): array
     {
         return [

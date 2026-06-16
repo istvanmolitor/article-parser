@@ -95,6 +95,16 @@ class ArticleContent
         return new ArrayIterator($this->elements);
     }
 
+    public function toHtml(): string
+    {
+        $html = '';
+        foreach ($this->elements as $element) {
+            $html .= $element->toHtml();
+        }
+
+        return $html;
+    }
+
     public function count(): int
     {
         return count($this->elements);

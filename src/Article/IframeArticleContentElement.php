@@ -19,4 +19,11 @@ class IframeArticleContentElement extends ArticleContentElement
     {
         return '';
     }
+
+    public function toHtml(): string
+    {
+        $src = htmlspecialchars($this->src, ENT_QUOTES);
+
+        return '<iframe src="'.$src.'" allowfullscreen></iframe>';
+    }
 }

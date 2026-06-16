@@ -157,4 +157,14 @@ class VideoArticleContentElement extends ArticleContentElement
     {
         return (string) $this->title;
     }
+
+    public function toHtml(): string
+    {
+        $src = htmlspecialchars($this->src, ENT_QUOTES);
+        if ($this->type === 'html5') {
+            return '<video src="'.$src.'" controls></video>';
+        }
+
+        return '<iframe src="'.$src.'" allowfullscreen></iframe>';
+    }
 }

@@ -53,4 +53,18 @@ class ArticleImage
             'author' => $this->author,
         ];
     }
+
+    public function toHtml(): string
+    {
+        $e = fn (string $s) => htmlspecialchars($s, ENT_QUOTES);
+
+        $html = '<figure>';
+        $html .= '<img src="'.$e($this->src).'" alt="'.$e($this->alt ?? '').'">';
+        if (!empty($this->author)) {
+            $html .= '<figcaption>'.$e($this->author).'</figcaption>';
+        }
+        $html .= '</figure>';
+
+        return $html;
+    }
 }

@@ -55,4 +55,9 @@ class ImageArticleContentElement extends ArticleContentElement
     {
         return $this->image->getSrc();
     }
+
+    public function toHtml(): string
+    {
+        return $this->image->toHtml();
+    }
 }

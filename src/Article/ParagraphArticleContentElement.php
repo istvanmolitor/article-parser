@@ -27,4 +27,9 @@ class ParagraphArticleContentElement extends ArticleContentElement
     {
         return $this->content;
     }
+
+    public function toHtml(): string
+    {
+        return '<p>'.$this->content.'</p>';
+    }
 }

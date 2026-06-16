@@ -27,4 +27,11 @@ class ListArticleContentElement extends ArticleContentElement
     {
         return implode(' ', $this->items);
     }
+
+    public function toHtml(): string
+    {
+        $items = array_map(fn ($item) => '<li>'.$item.'</li>', $this->items);
+
+        return '<ul>'.implode('', $items).'</ul>';
+    }
 }
