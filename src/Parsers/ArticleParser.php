@@ -81,7 +81,11 @@ abstract class ArticleParser
         $elements = $articleContentWrapper->getChildren();
         /** @var HtmlParser $element */
         foreach ($elements as $element) {
-            $this->parseArticleContentElement($content, $element);
+            try {
+                $this->parseArticleContentElement($content, $element);
+            } catch (\InvalidArgumentException $e) {
+                // Ignore content elements
+            }
         }
 
         return $content;

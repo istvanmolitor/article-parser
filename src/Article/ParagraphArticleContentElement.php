@@ -8,6 +8,10 @@ class ParagraphArticleContentElement extends ArticleContentElement
 
     public function __construct(string $content)
     {
+        $content = trim($content);
+        if (empty($content)) {
+            throw new \InvalidArgumentException('Content cannot be empty');
+        }
         $this->content = $content;
     }
 
