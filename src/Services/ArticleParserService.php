@@ -95,7 +95,27 @@ class ArticleParserService
     {
         $class = $this->resolveParserClass($url);
 
-        $content = @file_get_contents($url);
+        $context = stream_context_create([
+            'http' => [
+                'method'          => 'GET',
+                'header'          => implode("\r\n", [
+                    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    'Accept-Language: hu-HU,hu;q=0.9,en;q=0.8',
+                    'Accept-Encoding: identity',
+                    'Connection: close',
+                    'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+                ]),
+                'timeout'         => 20,
+                'follow_location' => true,
+                'max_redirects'   => 5,
+            ],
+            'ssl' => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
+
+        $content = @file_get_contents($url, false, $context);
         if (! $content) {
             throw new ArticleFetchException("Failed to fetch content from URL: {$url}");
         }
