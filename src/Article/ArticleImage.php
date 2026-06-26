@@ -6,9 +6,9 @@ class ArticleImage
 {
     protected string $src;
 
-    protected ?string $alt;
+    protected ?string $alt = null;
 
-    protected ?string $author;
+    protected ?string $author = null;
 
     public function __construct(string $src)
     {
