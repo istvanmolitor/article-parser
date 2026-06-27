@@ -58,9 +58,9 @@ class ArticleContent
         return $list;
     }
 
-    public function addQuote(string $content): QuoteArticleContentElement
+    public function addQuote(string $content, ?string $author = null): QuoteArticleContentElement
     {
-        $quote = new QuoteArticleContentElement($content);
+        $quote = new QuoteArticleContentElement($content, $author);
         $this->add($quote);
 
         return $quote;
