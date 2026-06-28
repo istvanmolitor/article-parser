@@ -15,7 +15,7 @@ class PortfolioArticleParser extends ArticleParser
 
     public function isValidArticle(): bool
     {
-        return $this->html->classExists('pfarticle-archive');
+        return $this->html->classExists('pfarticle-section-content');
     }
 
     public function getLead(): ?string
